@@ -1,0 +1,21 @@
+{
+  "name": "r3-local-paired-v1",
+  "seed": 20261103,
+  "repeats": 3,
+  "steady_requests": 32,
+  "rates": [1, 8],
+  "input_tokens": [64, 1024],
+  "output_budgets": [16, 128],
+  "release_requests": 64,
+  "release_rate": 2,
+  "release_switch_seconds": 16,
+  "release_gap_seconds": 1,
+  "slo": {"ttft_seconds": 1, "short_e2e_seconds": 5, "long_e2e_seconds": 10},
+  "client_timeout_seconds": 30,
+  "late_drop_seconds": 0.25,
+  "valid_schedule_p95_interval_fraction": 0.1,
+  "gateway_limits": {"max_inflight": 8, "max_queue": 16, "deadline_seconds": 30, "cancel_grace_seconds": 10},
+  "diagnostic_requests": 32,
+  "formal_requests": 1152,
+  "scope": "local transport-valid SLO and bottleneck diagnosis, not application quality, production capacity or optimization gain"
+}

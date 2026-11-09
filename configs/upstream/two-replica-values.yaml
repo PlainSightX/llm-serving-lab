@@ -1,0 +1,57 @@
+# 只用于固定渲染与后续部署资格；须先提供双GPU节点及预置模型RWX卷。
+servingEngineSpec:
+  enableEngine: true
+  strategy:
+    type: RollingUpdate
+    rollingUpdate: {maxSurge: 0, maxUnavailable: 1}
+  modelSpec:
+    - name: qwen3-06b
+      enabled: true
+      repository: vllm/vllm-openai
+      tag: "v0.11.2@sha256:2c908d5a84ed251b6a17d179f42d06df1aff353007779ac5eecd8a0ea3fe9331"
+      modelURL: /data/qwen3-0.6b
+      modelRevision: c1899de289a04d12100db370d81485cdf75e47ca
+      replicaCount: 2
+      requestCPU: 2
+      requestMemory: 8Gi
+      limitCPU: 4
+      limitMemory: 16Gi
+      requestGPU: 1
+      requestGPUType: nvidia.com/gpu
+      runtimeClassName: nvidia
+      pvcExistingClaimName: qwen3-06b-models-rwx
+      pvcStorage: 10Gi
+      podLabels: {lsl-model-family: qwen3-06b}
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            - labelSelector:
+                matchLabels: {lsl-model-family: qwen3-06b}
+              topologyKey: kubernetes.io/hostname
+      shmSize: 2Gi
+      enableLoRA: false
+      lmcacheConfig: {enabled: false}
+      keda: {enabled: false}
+      env:
+        - {name: HF_HUB_OFFLINE, value: "1"}
+        - {name: TRANSFORMERS_OFFLINE, value: "1"}
+      vllmConfig:
+        v0: "0"
+        dtype: bfloat16
+        maxModelLen: 4096
+        maxNumSeqs: 8
+        tensorParallelSize: 1
+        gpuMemoryUtilization: 0.25
+        enablePrefixCaching: false
+        enableChunkedPrefill: true
+        extraArgs:
+          - --served-model-name
+          - qwen3-06b-r2
+          - --generation-config
+          - vllm
+          - --enable-request-id-headers
+          - --max-num-batched-tokens
+          - "4096"
+routerSpec:
+  serviceDiscovery: k8s
+  routingLogic: roundrobin

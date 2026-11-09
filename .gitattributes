@@ -1,0 +1,3 @@
+* text=auto eol=lf
+# 已执行诊断面板的字节参与运行身份，保留原始换行供恢复核验。
+fixtures/tasks/q2-rescue-panel.json -text

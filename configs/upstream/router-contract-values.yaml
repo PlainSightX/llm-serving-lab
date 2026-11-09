@@ -1,0 +1,30 @@
+servingEngineSpec:
+  enableEngine: false
+  modelSpec: []
+routerSpec:
+  enableRouter: true
+  repository: ghcr.io/vllm-project/production-stack/router
+  tag: "e8cb4959ebfa333714ef468a3aefe158a65a09e6@sha256:5b138d39a2aeb417be496c17a74b6b1fc7201d23f5ea125aabdb0326be62967b"
+  imagePullPolicy: IfNotPresent
+  replicaCount: 1
+  serviceDiscovery: static
+  staticBackends: "http://contract-backend-a:8000,http://contract-backend-b:8000"
+  staticModels: "contract-v1,contract-v1"
+  routingLogic: roundrobin
+  containerPort: 8000
+  servicePort: 80
+  serviceType: ClusterIP
+  extraArgs: ["--max-instance-failover-reroute-attempts", "0", "--feature-gates", "SemanticCache=false"]
+  engineScrapeInterval: 30
+  requestStatsWindow: 60
+  autoscaling: {enabled: false}
+  serviceMonitor: {enabled: false}
+  resources:
+    requests: {cpu: 200m, memory: 256Mi}
+    limits: {cpu: "1", memory: 1Gi}
+sharedPvcStorage: {enabled: false}
+cacheserverSpec: {enabled: false}
+loraController: {enableLoraController: false}
+kube-prometheus-stack: {enabled: false}
+prometheus-adapter: {enabled: false}
+k8s-aibom: {enabled: false}

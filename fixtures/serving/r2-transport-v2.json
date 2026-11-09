@@ -1,0 +1,13 @@
+{
+  "name": "r2-transport-v2",
+  "qualification_scope": "version_transport_ready_v2",
+  "purpose": "local_engineering_acceptance_traffic_only",
+  "deadline_seconds": 30,
+  "required_passes": 4,
+  "cases": [
+    {"id": "plain", "messages": [{"role": "user", "content": "请只输出：OK"}], "max_tokens": 64, "stream": false, "expected_finish": "stop"},
+    {"id": "plain_repeat", "messages": [{"role": "user", "content": "请只输出：OK"}], "max_tokens": 64, "stream": false, "expected_finish": "stop"},
+    {"id": "stream", "messages": [{"role": "user", "content": "请只输出：OK"}], "max_tokens": 64, "stream": true, "expected_finish": "stop"},
+    {"id": "budget", "messages": [{"role": "user", "content": "从1开始逐个输出整数直到1000，不要省略，不要解释。"}], "max_tokens": 1, "stream": false, "expected_finish": "length"}
+  ]
+}

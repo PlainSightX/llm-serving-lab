@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "selection_seed": 20261102,
+  "max_steps": 100,
+  "agentcl_revision": "a01e2ca6e33fd07d9cf80e4bd69a5b3585d3400f",
+  "image_id": "sha256:d3938e3d3b2d4d7a2aa15fac50c9a42a6a65f0603ba025339f7e2c30a1118ae4",
+  "reference_method": "planner",
+  "versions": {"alfworld": "0.4.2", "textworld": "1.7.0", "numpy": "1.26.4", "pyyaml": "6.0.3"},
+  "sources": {
+    "json.zip": {"url": "https://github.com/alfworld/alfworld/releases/download/0.2.2/json_2.1.1_json.zip", "bytes": 72018818, "sha256": "25171f16e20ad7b048c47275c45b0babf3aa1cbab29cec97387922350a9844bc"},
+    "games.zip": {"url": "https://github.com/alfworld/alfworld/releases/download/0.4.2/json_2.1.3_tw-pddl.zip", "bytes": 36507267, "sha256": "5df77ea759f2211a4106082839ddbbb790f1ba4e7d097ed732cf453f72aa36cf"},
+    "agentcl-readme.md": {"url": "https://huggingface.co/datasets/osunlp/AgentCL/resolve/a01e2ca6e33fd07d9cf80e4bd69a5b3585d3400f/README.md", "bytes": 4986, "sha256": "267c57f4a0c58e7046e6c7359a313c071cd3e776a24420a69c406dccb5472c57"},
+    "agentcl-humaneval-dependent.json": {"url": "https://huggingface.co/datasets/osunlp/AgentCL/resolve/a01e2ca6e33fd07d9cf80e4bd69a5b3585d3400f/codeeval-pro/humaneval_pro.dependent.json", "bytes": 352407, "sha256": "8997fa1da8f29e614390604b32984a292c7eb0238d44764e9f637da58757847d"}
+  }
+}

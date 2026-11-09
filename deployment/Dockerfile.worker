@@ -1,0 +1,13 @@
+ARG BASE_IMAGE
+FROM ${BASE_IMAGE}
+ENV PYTHONUNBUFFERED=1 PYTHONDONTWRITEBYTECODE=1 HF_HUB_OFFLINE=1 TRANSFORMERS_OFFLINE=1 VLLM_NO_USAGE_STATS=1 DO_NOT_TRACK=1
+WORKDIR /app
+RUN apt-get update && apt-get install -y --no-install-recommends build-essential libnuma1 libgl1 libglib2.0-0 && rm -rf /var/lib/apt/lists/*
+COPY worker-requirements.txt /tmp/worker-requirements.txt
+RUN --mount=type=bind,from=runtime_wheels,target=/runtime-wheels,readonly python3 -m pip install --no-cache-dir --no-index --find-links=/runtime-wheels --require-hashes -r /tmp/worker-requirements.txt
+COPY wheels/ /tmp/wheels/
+RUN python3 -m pip install --no-cache-dir --no-deps /tmp/wheels/*.whl && python3 -m pip check
+RUN python3 -c "import importlib.metadata as m,torch; assert m.version('vllm')=='0.11.2'; assert m.version('transformers')=='4.57.1'; assert torch.__version__=='2.9.0+cu128'; assert torch.version.cuda=='12.8'"
+COPY scripts/ /app/scripts/
+COPY fixtures/ /app/fixtures/
+ENTRYPOINT ["python3", "/app/scripts/run_worker.py"]

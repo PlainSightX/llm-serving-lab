@@ -1,0 +1,12 @@
+ARG BASE_IMAGE
+FROM ${BASE_IMAGE}
+ENV PYTHONUNBUFFERED=1 PYTHONDONTWRITEBYTECODE=1
+WORKDIR /app
+COPY core-requirements.txt /tmp/core-requirements.txt
+RUN pip install --no-cache-dir --require-hashes -r /tmp/core-requirements.txt
+COPY wheels/ /tmp/wheels/
+RUN pip install --no-cache-dir --no-deps /tmp/wheels/*.whl && pip check
+COPY scripts/ /app/scripts/
+COPY fixtures/ /app/fixtures/
+USER 1000:1000
+ENTRYPOINT ["python", "/app/scripts/serve_replicas.py"]

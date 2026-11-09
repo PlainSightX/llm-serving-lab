@@ -1,0 +1,11 @@
+{
+  "platform": "linux/amd64",
+  "control_base": "python:3.12.14-slim-bookworm@sha256:392307d22300de8b5986851a12d9176dfc0fc073e65bf6523ebd7dcbeb23564e",
+  "worker_base": "python:3.12.14-slim-bookworm@sha256:392307d22300de8b5986851a12d9176dfc0fc073e65bf6523ebd7dcbeb23564e",
+  "upstream_reference": "vllm/vllm-openai:v0.11.2@sha256:2c908d5a84ed251b6a17d179f42d06df1aff353007779ac5eecd8a0ea3fe9331",
+  "worker_runtime_lock": "environments/serving-linux/uv.lock",
+  "local_k3s": "rancher/k3s:v1.35.9-k3s1@sha256:ec9868c6a38d4e8c1869832fb5fd1eb8473c39794a0b44d2b952e7ba911951bc",
+  "k3s_version": "v1.35.9+k3s1",
+  "device_plugin_version": "v0.20.1",
+  "device_plugin_image": "nvcr.io/nvidia/k8s-device-plugin:v0.20.1@sha256:27c1b2553a690ca3d29889dcd61df97525d46f58272c0be8dc63c2b18f120075"
+}

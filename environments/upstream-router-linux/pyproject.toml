@@ -1,0 +1,8 @@
+[project]
+name = "lsl-upstream-router-contract"
+version = "0.1.0"
+requires-python = ">=3.12,<3.13"
+dependencies = ["vllm-router"]
+
+[tool.uv.sources]
+vllm-router = { git = "https://github.com/vllm-project/production-stack.git", rev = "e8cb4959ebfa333714ef468a3aefe158a65a09e6" }

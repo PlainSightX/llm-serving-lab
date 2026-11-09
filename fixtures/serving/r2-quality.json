@@ -1,0 +1,17 @@
+{
+  "name": "r2-service-functional-quality-v1",
+  "purpose": "service_qualification_not_research",
+  "max_tokens": 128,
+  "deadline_seconds": 30,
+  "required_passes": 8,
+  "cases": [
+    {"id": "literal", "messages": [{"role": "user", "content": "只输出 READY，不要解释或添加标点。"}], "expected_text": "READY"},
+    {"id": "arithmetic", "messages": [{"role": "user", "content": "7加5等于多少？只输出阿拉伯数字。"}], "expected_text": "12"},
+    {"id": "extract", "messages": [{"role": "user", "content": "日志为 service=shipping status=ok。提取service的值，只输出该值。"}], "expected_text": "shipping"},
+    {"id": "json", "messages": [{"role": "user", "content": "仅输出一个JSON对象，不要代码围栏，包含service字段值为billing，以及ok字段值为布尔值true。"}], "expected_json": {"service": "billing", "ok": true}},
+    {"id": "rule", "messages": [{"role": "user", "content": "规则：ERROR对应P1，WARN对应P2，INFO对应P3。当前日志级别为WARN，只输出对应的P等级。"}], "expected_text": "P2"},
+    {"id": "context", "messages": [{"role": "user", "content": "本次工单编号是ALPHA-27。"}, {"role": "assistant", "content": "已记录。"}, {"role": "user", "content": "只输出刚才的工单编号。"}], "expected_text": "ALPHA-27"},
+    {"id": "missing", "messages": [{"role": "user", "content": "数据只有service=status，没有version字段。读取version；如果缺失，只输出UNKNOWN，不要猜测。"}], "expected_text": "UNKNOWN"},
+    {"id": "ordering", "messages": [{"role": "user", "content": "将node-3、node-1、node-2按数字升序排列，仅输出JSON字符串数组，不要代码围栏或说明。"}], "expected_json": ["node-1", "node-2", "node-3"]}
+  ]
+}
